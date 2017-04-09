@@ -1,0 +1,24 @@
+---
+- name: configure j5
+  vars:
+    lo0_ipv4: "10.5.5.5/32"
+    isis_net: "49.0000.5555.5555.5555.00"
+    em0: "192.168.0.5"
+    em1: "192.168.15.2/30"
+    em2: "192.168.5.1/24"
+    em3: "192.168.25.2/30"
+  roles:
+  - Juniper.junos
+  hosts: j5 
+  connection: local
+  gather_facts: no
+
+  tasks:
+  - name: Checking NETCONF connectivity
+    wait_for: host="192.168.0.5" port=830  timeout=5
+  - name: Load juniper config
+    junos_install_config:
+     host: 192.168.0.5
+     user: root
+     passwd: root123
+     file: "j5.conf"

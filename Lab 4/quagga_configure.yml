@@ -1,0 +1,23 @@
+---
+- name: configure quagga
+  hosts: quagga
+  vars:
+    lo0_ipv4: "10.4.4.4/32"
+    isis_net: "49.0000.4444.4444.4444.00"
+    eth0: "192.168.0.1"
+    swp1: "192.168.14.2/30"
+    swp2: "192.168.24.2/30"
+    swp3: "192.168.4.1/24"
+  remote_user: cumulus
+  become: yes
+  become_method: sudo
+  tasks: 
+  - name: Write quagga conf
+    template: src=quagga.j2 dest=/etc/quagga/Quagga.conf
+    notify:
+    - restart quagga
+  - name: quagga status
+    service: name=quagga state=started
+  handlers:
+  - name: restart quagga
+    service: name=quagga state=restarted

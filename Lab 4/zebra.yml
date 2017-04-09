@@ -1,0 +1,8 @@
+---
+  - hosts: quagga
+    remote_user: cumulus
+    become: yes
+    become_method: sudo
+    tasks:
+    - name: enable quagga daemons
+      template: src=quagga_daemons.j2 dest=/etc/quagga/daemons

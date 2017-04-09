@@ -1,0 +1,24 @@
+---
+- name: configure j2
+  vars:
+    lo0_ipv4: "10.2.2.2/32"
+    isis_net: "49.0000.2222.2222.2222.00"
+    em0: "192.168.0.2/32"
+    em1: "192.168.23.1/30"
+    em2: "192.168.24.1/30"
+    em3: "192.168.25.1/30"
+  roles:
+  - Juniper.junos 
+  hosts: j2
+  connection: local
+  gather_facts: no
+ 
+  tasks:
+  - name: Checking NETCONF connectivity
+    wait_for: host="192.168.0.2" port=830  timeout=5
+  - name: Load juniper config
+    junos_install_config:
+     host: 192.168.0.2
+     user: root
+     passwd: root123
+     file: "j2.conf"
