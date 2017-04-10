@@ -11,5 +11,5 @@
     - name: configure /etc/default/isc-dhcp-server
       template: src=isc-dhcp-server.j2 dest=/etc/default/isc-dhcp-server
       
-      - name: Configure /etc/dhcp/dhcpd.conf
+    - name: Configure /etc/dhcp/dhcpd.conf
       template: src=s1_dhcpd.j2 dest=/etc/dhcp/dhcpd.conf
