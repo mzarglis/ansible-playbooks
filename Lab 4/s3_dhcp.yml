@@ -1,0 +1,15 @@
+---
+  - hosts: s1
+    remote_user: cumulus
+    become: yes
+    remote_user: cumulus
+
+    tasks: 
+    - name: Configure /etc/network/interfaces
+      template: src=s3_interfaces.j2 dest=/etc/network/interfaces
+      
+    - name: configure /etc/default/isc-dhcp-server
+      template: src=isc-dhcp-server.j2 dest=/etc/default/isc-dhcp-server
+      
+    - name: Configure /etc/dhcp/dhcpd.conf
+      template: src=s3_dhcpd.j2 dest=/etc/dhcp/dhcpd.conf

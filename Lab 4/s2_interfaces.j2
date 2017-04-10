@@ -1,7 +1,13 @@
-auto swp3
+auto lo
+iface lo inet loopback
 
-iface swp3 inet static
+auto eth0
+iface eth0 inet static
+address 192.168.0.7
+netmask 255.255.255.0
 
+
+auto swp1
+iface swp1 inet static
 address 192.168.4.2
-
 netmask 255.255.255.0
